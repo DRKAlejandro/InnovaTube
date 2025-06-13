@@ -1,0 +1,30 @@
+:root {
+  --innova-red: #cc0000;
+  --innova-blue: #4285f4;
+  --innova-green: #0f9d58;
+  --innova-yellow: #ffc107;
+  --innova-dark: #202124;
+  --innova-light: #f8f9fa;
+  --innova-white: #ffffff;
+  --innova-gray: #5f6368;
+
+  --font-main: "Roboto", sans-serif;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+
+  --border-radius: 0.25rem;
+  --border-radius-lg: 0.5rem;
+}
