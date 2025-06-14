@@ -1,1 +1,44 @@
-<p>register works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="login-container p-4 shadow-sm rounded bg-white">
+                <form class="login-form">
+                    <h2 class="login-title text-center mb-4">Crear Cuenta</h2>
+                    <div class="form-group">
+                        <label for="fullname" class="form-label">Nombre(s)</label>
+                        <input type="text" id="name" class="form-input" placeholder="Ingresa tu(s) nombre(s)">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname" class="form-label">Apellido(s)</label>
+                        <input type="text" id="last-name" class="form-input" placeholder="Ingresa tu(s) apellido(s)">
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="form-label">Nombre de usuario</label>
+                        <input type="text" id="username" class="form-input" placeholder="Elige un nombre de usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" id="email" class="form-input" placeholder="Ingresa tu correo electrónico">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" class="form-input" placeholder="Crea tu contraseña">
+                        <div class="form-hint">Mínimo 8 caracteres</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" id="confirmPassword" class="form-input"
+                            placeholder="Confirma tu contraseña">
+                    </div>
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-primary py-2">Registrarse</button>
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="text-muted">¿Ya tienes cuenta? </span>
+                        <a routerLink="/login" class="text-decoration-none">Iniciar Sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

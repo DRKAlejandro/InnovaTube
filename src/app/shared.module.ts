@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [],
   imports: [CommonModule,
@@ -16,3 +17,4 @@ import { environment } from '../environments/environment';
   exports: []
 })
 export class SharedModule {}
+
