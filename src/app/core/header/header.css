@@ -99,17 +99,8 @@
       }
     }
 
-    .login-link {
-      color: var(--color-primary);
-      border: 1px solid var(--color-primary);
-      border-radius: var(--radius-sm);
-      padding: var(--spacing-xs) var(--spacing-sm);
-      transition: all var(--transition-fast);
-
-      &:hover {
-        background-color: var(--color-primary);
-        color: white;
-      }
-    }
+ 
   }
 }
+
+

@@ -1,0 +1,11 @@
+<div class="card h-100">
+    <img [src]="video.snippet.thumbnails.medium.url" class="card-img-top" alt="Video thumbnail">
+    <div class="card-body">
+        <h5 class="card-title">{{ video.snippet.title }}</h5>
+        <p class="card-text">{{ video.snippet.description | slice:0:100 }}...</p>
+    </div>
+    <div class="card-footer">
+        <a [href]="'https://www.youtube.com/watch?v=' + video.id.videoId" target="_blank"
+            class="btn btn-primary btn-sm">Ver en YouTube</a>
+    </div>
+</div>

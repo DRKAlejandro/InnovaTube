@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div class="container py-4">
+    <div class="mb-4">
+        <input [(ngModel)]="searchQuery" (keyup.enter)="search()" class="form-control" placeholder="Buscar videos..." />
+    </div>
+
+    <div *ngIf="videos.length === 0">
+        <p class="text-muted">Busca un video para comenzar o revisa los destacados.</p>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4" *ngFor="let video of videos">
+            <app-card-video [video]="video"></app-card-video>
+        </div>
+    </div>
+</div>

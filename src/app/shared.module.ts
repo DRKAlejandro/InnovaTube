@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
             AngularFirestoreModule,
             AngularFireAuthModule,
             RecaptchaModule,
+            HttpClientModule
   ],
   exports: []
 })

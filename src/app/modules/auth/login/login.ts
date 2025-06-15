@@ -43,6 +43,7 @@ export class Login {
       }
 
       Swal.fire('¡Bienvenido!', `Hola, ${user.name}`, 'success');
+      localStorage.setItem('user', JSON.stringify(user));
       this.router.navigate(['/app/home']);
     } catch (error) {
       console.error(error);
