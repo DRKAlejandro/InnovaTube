@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,7 @@ import { environment } from '../environments/environment';
             AngularFireModule.initializeApp(environment.firebase),
             AngularFirestoreModule,
             AngularFireAuthModule,
+            RecaptchaModule,
   ],
   exports: []
 })

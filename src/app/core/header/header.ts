@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  standalone: true,
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css'],
 })
 export class Header {
+  constructor(private router: Router) {}
 
+  logout() {
+    localStorage.removeItem('user');
+
+    this.router.navigate(['/']);
+  }
 }

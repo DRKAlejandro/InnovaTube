@@ -14,6 +14,13 @@ export const routes: Routes = [
       {
         path: 'register',
         loadComponent: () => import('./modules/auth/register/register').then(m => m.Register)
+      }, {
+        path: 'forgot-password',
+        loadComponent: () => import('./modules/auth/forgot-password/forgot-password').then(m => m.ForgotPassword)
+      },
+      {
+        path: 'reset-password',
+        loadComponent: () => import('./modules/auth/reset-password/reset-password').then(m => m.ResetPassword)
       }
     ]
   },
@@ -21,18 +28,18 @@ export const routes: Routes = [
     path: 'app',
     component: Layout,
     children: [
-      // {
-      //   path: 'home',
-      //   loadComponent: () => import('./modules/home/home').then(m => m.Home)
-      // },
-      // {
-      //   path: 'videos',
-      //   loadComponent: () => import('./modules/videos/videos').then(m => m.Videos)
-      // },
-      // {
-      //   path: 'favorites',
-      //   loadComponent: () => import('./modules/favorites/favorites').then(m => m.Favorites)
-      // },
+      {
+        path: 'home',
+        loadComponent: () => import('./modules/home/home').then(m => m.Home)
+      },
+      {
+        path: 'videos',
+        loadComponent: () => import('./modules/videos/videos').then(m => m.Videos)
+      },
+      {
+        path: 'favorites',
+        loadComponent: () => import('./modules/favorites/favorites').then(m => m.Favorites)
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },

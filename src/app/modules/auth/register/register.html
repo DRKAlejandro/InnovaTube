@@ -2,34 +2,49 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <div class="login-container p-4 shadow-sm rounded bg-white">
-                <form class="login-form">
+                <form class="login-form" (ngSubmit)="onSubmit()">
                     <h2 class="login-title text-center mb-4">Crear Cuenta</h2>
                     <div class="form-group">
                         <label for="fullname" class="form-label">Nombre(s)</label>
-                        <input type="text" id="name" class="form-input" placeholder="Ingresa tu(s) nombre(s)">
+                        <input type="text" id="name" class="form-input" placeholder="Ingresa tu(s) nombre(s)"
+                            [(ngModel)]="userData.name" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="fullname" class="form-label">Apellido(s)</label>
-                        <input type="text" id="last-name" class="form-input" placeholder="Ingresa tu(s) apellido(s)">
+                        <input type="text" id="last-name" class="form-input" placeholder="Ingresa tu(s) apellido(s)"
+                            [(ngModel)]="userData.lastName" name="lastName" required>
                     </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Nombre de usuario</label>
-                        <input type="text" id="username" class="form-input" placeholder="Elige un nombre de usuario">
+                        <input type="text" id="username" class="form-input" placeholder="Elige un nombre de usuario"
+                            [(ngModel)]="userData.username" name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" id="email" class="form-input" placeholder="Ingresa tu correo electrónico">
+                        <input type="email" id="email" class="form-input" placeholder="Ingresa tu correo electrónico"
+                            [(ngModel)]="userData.email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" id="password" class="form-input" placeholder="Crea tu contraseña">
+                        <input type="password" id="password" class="form-input" placeholder="Crea tu contraseña"
+                            [(ngModel)]="userData.password" name="password" required minlength="8">
                         <div class="form-hint">Mínimo 8 caracteres</div>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
                         <input type="password" id="confirmPassword" class="form-input"
-                            placeholder="Confirma tu contraseña">
+                            placeholder="Confirma tu contraseña" required [(ngModel)]="confirmPassword"
+                            name="confirmPassword">
+
                     </div>
+
+                    <!-- reCAPTCHA -->
+                    <div class="form-group my-3">
+                        <re-captcha (resolved)="handleCaptchaResolved($event)"
+                            siteKey="6Le9fWArAAAAACDXw-tdyHPj5G-uEwwBdYDL7T34">
+                        </re-captcha>
+                    </div>
+
                     <div class="d-grid mt-2">
                         <button type="submit" class="btn btn-primary py-2">Registrarse</button>
                     </div>
