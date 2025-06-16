@@ -1,11 +1,52 @@
-<div class="card h-100">
-    <img [src]="video.snippet.thumbnails.medium.url" class="card-img-top" alt="Video thumbnail">
-    <div class="card-body">
-        <h5 class="card-title">{{ video.snippet.title }}</h5>
-        <p class="card-text">{{ video.snippet.description | slice:0:100 }}...</p>
-    </div>
-    <div class="card-footer">
-        <a [href]="'https://www.youtube.com/watch?v=' + video.id.videoId" target="_blank"
-            class="btn btn-primary btn-sm">Ver en YouTube</a>
-    </div>
+<div class="video-card h-100">
+  <div class="thumb-wrapper">
+    <img
+      src="{{ video.snippet.thumbnails.medium.url }}"
+      alt="{{ video.snippet.title }}"
+    />
+
+    <span
+      class="btn-favorite-icon"
+      title="{{ isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos' }}"
+      (click)="toggleFavorite()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        [attr.fill]="isFavorite ? 'var(--color-secondary)' : 'none'"
+        [attr.stroke]="isFavorite ? 'var(--color-secondary)' : 'var(--color-secondary)'"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width="20"
+        height="20"
+      >
+        <path
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+        />
+      </svg>
+    </span>
+
+    <a
+      class="btn-play"
+      [href]="'https://www.youtube.com/watch?v=' + video.id.videoId"
+      target="_blank"
+      aria-label="Reproducir video en YouTube"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="var(--color-card)"
+        width="18"
+        height="18"
+      >
+        <polygon points="5 3 19 12 5 21 5 3" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="card-body">
+    <h5 class="title">{{ video.snippet.title }}</h5>
+    <p class="desc">{{ video.snippet.description | slice:0:100 }}&hellip;</p>
+  </div>
 </div>

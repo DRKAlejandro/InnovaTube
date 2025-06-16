@@ -23,9 +23,6 @@
   padding: var(--spacing-sm) var(--spacing-md);
 }
 
-
-
-
 .form-input::placeholder {
   color: var(--color-text-muted);
   opacity: 1;

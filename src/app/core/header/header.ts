@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
   selector: 'app-header',
   templateUrl: './header.html',
   styleUrl: './header.css',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class Header {
   userName: string | null = null;

@@ -1,3 +1,86 @@
-.card {
-    max-width: 100%;
+.video-card {
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform var(--transition-fast);
+  height: 100%;
+  max-width: 260px;
+  width: 100%;
+  margin: auto;
+  font-size: 0.9rem;
 }
+
+.video-card:hover {
+  transform: translateY(-4px);
+}
+
+.thumb-wrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.btn-play {
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-sm);
+  opacity: 0.9;
+  transition: var(--transition-fast);
+}
+
+.btn-play:hover {
+  opacity: 1;
+  box-shadow: var(--shadow-md);
+}
+
+.card-body {
+  padding: 16px;
+  flex: 1;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.btn-favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform var(--transition-fast);
+}
+
+.btn-favorite-icon:hover {
+  transform: scale(1.2);
+}
+
+

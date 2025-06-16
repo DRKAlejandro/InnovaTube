@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, query, getDocs, where, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, query, getDocs, where, updateDoc, deleteDoc, doc, serverTimestamp } from '@angular/fire/firestore';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 @Injectable({
@@ -62,6 +62,76 @@ export class Firebase {
     if (!snapshot.empty) {
       const docRef = snapshot.docs[0].ref;
       await updateDoc(docRef, { password: newPassword });
+    }
+  }
+
+  // Método para agregar un video a favoritos
+  async addFavorite(userEmail: string, video: any): Promise<void> {
+    console.log('Intentando agregar favorito:', { userEmail, video });
+    try {
+      const favoritesRef = collection(this.firestore, 'favorites');
+      const docRef = await addDoc(favoritesRef, {
+        userEmail,
+        videoId: video.id.videoId,
+        videoData: video,
+        createdAt: serverTimestamp() // Cambiado a serverTimestamp
+      });
+      console.log('Favorito agregado con ID:', docRef.id);
+    } catch (error) {
+      console.error("Error al agregar favorito: ", error);
+      throw error;
+    }
+  }
+
+  // Método para eliminar un video de favoritos
+  async removeFavorite(userEmail: string, videoId: string): Promise<void> {
+    try {
+      const favoritesRef = collection(this.firestore, 'favorites');
+      const q = query(
+        favoritesRef,
+        where('userEmail', '==', userEmail),
+        where('videoId', '==', videoId)
+      );
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (document) => {
+        await deleteDoc(doc(this.firestore, 'favorites', document.id));
+      });
+    } catch (error) {
+      console.error("Error al eliminar favorito: ", error);
+      throw error;
+    }
+  }
+
+  // Método para obtener todos los favoritos de un usuario
+  async getFavorites(userEmail: string): Promise<any[]> {
+    try {
+      const favoritesRef = collection(this.firestore, 'favorites');
+      const q = query(favoritesRef, where('userEmail', '==', userEmail));
+      const querySnapshot = await getDocs(q);
+
+      return querySnapshot.docs.map(doc => doc.data()['videoData']);
+    } catch (error) {
+      console.error("Error al obtener favoritos: ", error);
+      return [];
+    }
+  }
+
+  // Método para verificar si un video es favorito
+  async isFavorite(userEmail: string, videoId: string): Promise<boolean> {
+    try {
+      const favoritesRef = collection(this.firestore, 'favorites');
+      const q = query(
+        favoritesRef,
+        where('userEmail', '==', userEmail),
+        where('videoId', '==', videoId)
+      );
+
+      const querySnapshot = await getDocs(q);
+      return !querySnapshot.empty;
+    } catch (error) {
+      console.error("Error al verificar favorito: ", error);
+      return false;
     }
   }
 }
