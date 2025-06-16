@@ -15,25 +15,18 @@ import { Firebase } from '../../services/firebase';
 export class Home {
   searchQuery = '';
   videos: any[] = [];
-  favorites: any[] = [];
   isLoading = false;
   isSearching = false;
   hasMoreResults = true;
   currentSearchKey = 'trending';
-  activeTab: 'all' | 'favorites' = 'all';
 
-  constructor(private youtube: Youtube, private firebase: Firebase,
-  ) { }
+  favoritesSearchQuery = '';
+  filteredFavorites: any[] = [];
+  favorites: any[] = [];
+  isFavoritesLoading = false;
+  activeTab: 'videos' | 'favorites' = 'videos';
 
-
-  setActiveTab(tab: 'all' | 'favorites') {
-    this.activeTab = tab;
-    if (tab === 'favorites') {
-      this.loadFavorites();
-    } else {
-      this.loadTrendingVideos();
-    }
-  }
+  constructor(private youtube: Youtube, private firebase: Firebase) { }
 
   search() {
     if (!this.searchQuery.trim()) {
@@ -89,40 +82,6 @@ export class Home {
     });
   }
 
-  toggleFavorite(video: any) {
-    const index = this.favorites.findIndex(fav => fav.id.videoId === video.id.videoId);
-    if (index > -1) {
-      this.favorites.splice(index, 1);
-    } else {
-      this.favorites.push(video);
-    }
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
-  }
-
-  isFavorite(video: any): boolean {
-    return this.favorites.some(fav => fav.id.videoId === video.id.videoId);
-  }
-
-  ngOnInit() {
-    this.loadFavorites();
-    this.loadTrendingVideos();
-  }
-
-  private async loadFavorites() {
-    try {
-      const user = JSON.parse(localStorage.getItem('user') || 'null');
-      if (user && user.email) {
-        this.favorites = await this.firebase.getFavorites(user.email);
-      } else {
-        this.favorites = [];
-      }
-    } catch (error) {
-      console.error('Error al cargar favoritos:', error);
-      this.favorites = [];
-    }
-  }
-
-
   private loadTrendingVideos() {
     this.isSearching = false;
     this.isLoading = true;
@@ -142,5 +101,81 @@ export class Home {
         this.isLoading = false;
       }
     });
+  }
+
+  searchFavorites() {
+    if (!this.favoritesSearchQuery.trim()) {
+      this.filteredFavorites = [...this.favorites];
+      return;
+    }
+
+    const searchTerms = this.favoritesSearchQuery.toLowerCase().split(' ');
+
+    const scoredFavorites = this.favorites.map(fav => {
+      let score = 0;
+      const fieldsToSearch = [
+        { text: fav.snippet.title, weight: 3 },
+        { text: fav.snippet.channelTitle, weight: 2 },
+        { text: fav.snippet.description, weight: 1 },
+        { text: fav.snippet.tags ? fav.snippet.tags.join(' ') : '', weight: 2 }
+      ];
+
+      searchTerms.forEach(term => {
+        fieldsToSearch.forEach(field => {
+          if (field.text.toLowerCase().includes(term)) {
+            score += field.weight;
+            if ((field.text.toLowerCase() === term) && (field.weight >= 2)) {
+              score += 2;
+            }
+          }
+        });
+      });
+
+      return { video: fav, score };
+    });
+
+    this.filteredFavorites = scoredFavorites
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(item => item.video);
+  }
+
+  async refreshFavorites() {
+    this.isFavoritesLoading = true;
+    try {
+      await this.loadFavorites();
+      this.searchFavorites();
+    } finally {
+      this.isFavoritesLoading = false;
+    }
+  }
+
+  private async loadFavorites() {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+      if (user && user.email) {
+        this.favorites = await this.firebase.getFavorites(user.email);
+        this.filteredFavorites = [...this.favorites];
+      } else {
+        this.favorites = [];
+        this.filteredFavorites = [];
+      }
+    } catch (error) {
+      console.error('Error al cargar favoritos:', error);
+      this.favorites = [];
+      this.filteredFavorites = [];
+    }
+  }
+
+  switchTab(tab: 'videos' | 'favorites') {
+    this.activeTab = tab;
+    if (tab === 'favorites') {
+      this.refreshFavorites();
+    }
+  }
+
+  ngOnInit() {
+    this.loadFavorites();
+    this.loadTrendingVideos();
   }
 }
