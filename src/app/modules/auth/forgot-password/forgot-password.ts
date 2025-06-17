@@ -32,7 +32,7 @@ export class ForgotPassword {
   }
   sendResetEmail() {
     const templateParams = {
-      reset_link: `http://localhost:4200/reset-password?email=${this.email}`,
+      reset_link: `${this.getBaseUrl()}/reset-password?email=${this.email}`,
       from_email: this.email,
     };
 
@@ -47,5 +47,7 @@ export class ForgotPassword {
       });
   }
 
-
+  getBaseUrl(): string {
+    return window.location.origin;
+  }
 }

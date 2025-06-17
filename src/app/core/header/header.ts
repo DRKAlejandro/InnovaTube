@@ -15,7 +15,7 @@ export class Header {
   constructor(private router: Router) {
     const user = localStorage.getItem('user');
     if (user) {
-      this.userName = JSON.parse(user).name;
+      this.userName = JSON.parse(user).username;
       console.log(`Usuario autenticado: ${this.userName}`);
     }
   }
